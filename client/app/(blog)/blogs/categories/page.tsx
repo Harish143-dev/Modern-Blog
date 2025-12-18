@@ -1,5 +1,5 @@
+"use client";
 import { CategoriesAsync } from "@/components/AsyncComponent";
-import Categories from "@/components/Categories";
 import CategoriesSkeleton from "@/components/skeletonLoading/CategoriesSkeleton";
 import React, { Suspense } from "react";
 
