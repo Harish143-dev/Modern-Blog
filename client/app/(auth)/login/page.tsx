@@ -210,7 +210,7 @@ export default function LoginPage() {
       buttonRef.current.addEventListener("mouseenter", handleMouseEnter);
       buttonRef.current.addEventListener("mouseleave", handleMouseLeave);
     }
-  }, []);
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-gradient-to-br from-primary via-background to-secondary">
