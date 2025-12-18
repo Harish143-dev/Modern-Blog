@@ -1,6 +1,4 @@
-import BlogsSlider from "@/components/BlogsSlider";
 import HeroSection from "@/components/HeroSection";
-import Categories from "@/components/Categories";
 import { Suspense } from "react";
 import HighestViewsBlogsSkeleton from "@/components/skeletonLoading/HighestViewsBlogsSkeleton";
 import TodayHighlightSkeleton from "@/components/skeletonLoading/TodayHighlightSkeleton";
