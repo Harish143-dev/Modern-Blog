@@ -21,6 +21,9 @@ export default function LazyBlogGrid({
   );
   const [hasMore, setHasMore] = useState(initialBlogs.length > 9);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const BLOGS_PER_PAGE = 9;
 
@@ -55,9 +58,6 @@ export default function LazyBlogGrid({
 
     return () => observer.disconnect();
   }, [displayedBlogs, initialBlogs, hasMore]);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -86,9 +86,9 @@ export default function LazyBlogGrid({
           from: "start",
         },
         scrollTrigger: {
-          trigger: cardsRef.current,
+          trigger: cardsRef.current[0],
           start: "top 85%",
-          scrub: true,
+          toggleActions: "play none none reverse",
         },
       });
     },
@@ -99,13 +99,13 @@ export default function LazyBlogGrid({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {displayedBlogs.map((blog: BlogType, index: number) => (
           <div
-          key={blog._id}
+            key={blog._id}
             ref={(el) => {
               cardsRef.current[index] = el;
-            }}>
-              <BlogCard blogs={blog} isEditing={isEditing} />
+            }}
+          >
+            <BlogCard blogs={blog} isEditing={isEditing} />
           </div>
-          
         ))}
       </div>
 
