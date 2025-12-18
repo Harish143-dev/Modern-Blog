@@ -19,7 +19,7 @@ export default function BlogsPage() {
           page: 1,
           limit: 9,
         });
-        setBlogs(res.data.blogs || []);
+        setBlogs(res.blogs || []);
       } catch (err) {
         console.error("Failed to fetch blogs:", err);
         setBlogs([]);

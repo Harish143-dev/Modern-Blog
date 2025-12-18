@@ -52,9 +52,6 @@ export default function LazyBlogGrid({
     return () => observer.disconnect();
   }, [displayedBlogs, initialBlogs, hasMore]);
 
-  console.log("Displayed Blogs:", displayedBlogs);
-  console.log("Initial Blogs:", initialBlogs);
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
