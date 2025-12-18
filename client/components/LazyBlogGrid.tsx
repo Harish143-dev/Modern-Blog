@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import BlogCard from "@/components/BlogCard";
 import { BlogType } from "@/types/blogsType";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 interface LazyBlogGridProps {
   initialBlogs: BlogType[];
@@ -51,12 +53,57 @@ export default function LazyBlogGrid({
 
     return () => observer.disconnect();
   }, [displayedBlogs, initialBlogs, hasMore]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
+  useGSAP(
+    () => {
+      // Header animation
+      gsap.from(headerRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Cards stagger animation
+      gsap.from(cardsRef.current, {
+        y: 100,
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: {
+          amount: 0.8,
+          from: "start",
+        },
+        scrollTrigger: {
+          trigger: cardsRef.current[0],
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    },
+    { scope: sectionRef }
+  );
   return (
-    <>
+    <div ref={sectionRef}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {displayedBlogs.map((blog: BlogType) => (
-          <BlogCard key={blog._id} blogs={blog} isEditing={isEditing} />
+        {displayedBlogs.map((blog: BlogType, index: number) => (
+          <div
+          key={blog._id}
+            ref={(el) => {
+              cardsRef.current[index] = el;
+            }}>
+              <BlogCard blogs={blog} isEditing={isEditing} />
+          </div>
+          
         ))}
       </div>
 
@@ -71,6 +118,6 @@ export default function LazyBlogGrid({
       <div className="text-center text-gray-500 mt-8">
         Showing {displayedBlogs.length} of {initialBlogs.length} posts
       </div>
-    </>
+    </div>
   );
 }
