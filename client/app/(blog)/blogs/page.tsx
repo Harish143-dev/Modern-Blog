@@ -1,22 +1,22 @@
 import { Suspense } from "react";
-import BlogCard from "@/components/BlogCard";
 import LazyBlogGrid from "@/components/LazyBlogGrid";
 import { BlogCardsGridSkeleton } from "@/components/skeletonLoading/BlogCardsGridSkeleton";
+import axios from "axios";
 
+export const dynamic = "force-dynamic";
 // Fetch blogs on server (SSR)
 async function getBlogs() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/blogs?published=true`,
-    {
-      cache: "no-store",
-    }
-  );
+  try {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
+      params: { published: true },
+      timeout: 5000, // prevents hanging build
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch blogs");
+    return res.data ?? [];
+  } catch (error) {
+    console.error("getBlogs failed:", error);
+    return []; // 🚨 NEVER throw during build
   }
-
-  return res.json();
 }
 
 export default async function BlogsPage() {
