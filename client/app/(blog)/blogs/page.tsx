@@ -4,6 +4,7 @@ import { BlogCardsGridSkeleton } from "@/components/skeletonLoading/BlogCardsGri
 import axios from "axios";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 // Fetch blogs on server (SSR)
 async function getBlogs() {
   try {
