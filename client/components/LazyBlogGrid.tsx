@@ -61,19 +61,6 @@ export default function LazyBlogGrid({
 
   useGSAP(
     () => {
-      // Header animation
-      gsap.from(headerRef.current, {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
-
       // Cards stagger animation
       gsap.from(cardsRef.current, {
         y: 100,
@@ -88,7 +75,7 @@ export default function LazyBlogGrid({
         scrollTrigger: {
           trigger: cardsRef.current[0],
           start: "top 85%",
-          toggleActions: "play none none reverse",
+          scrub: true,
         },
       });
     },
