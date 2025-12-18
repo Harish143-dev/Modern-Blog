@@ -137,18 +137,12 @@ const HeroSection = () => {
             Stories, Ideas & Inspiration for Curious Minds
           </h1>
 
-          <p
-            ref={subtitleRef}
-            className="text-xl md:text-2xl font-semibold"
-          >
+          <p ref={subtitleRef} className="text-xl md:text-2xl font-semibold">
             A digital journal where thoughts transform into meaningful
             conversations.
           </p>
 
-          <p
-            ref={descRef}
-            className="text-base md:text-lg  max-w-2xl"
-          >
+          <p ref={descRef} className="text-base md:text-lg  max-w-2xl">
             Here you'll find long-form reads, creative perspectives, and
             thoughtful reflections designed to spark curiosity. Get inspired by
             content that blends knowledge, imagination, and real-life
