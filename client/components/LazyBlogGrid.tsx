@@ -4,7 +4,9 @@ import BlogCard from "@/components/BlogCard";
 import { BlogType } from "@/types/blogsType";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 interface LazyBlogGridProps {
   initialBlogs: BlogType[];
   isEditing?: boolean;
