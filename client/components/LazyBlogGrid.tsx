@@ -86,7 +86,7 @@ export default function LazyBlogGrid({
           from: "start",
         },
         scrollTrigger: {
-          trigger: cardsRef.current[0],
+          trigger: cardsRef.current,
           start: "top 85%",
           toggleActions: "play none none reverse",
         },
