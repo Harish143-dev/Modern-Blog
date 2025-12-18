@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
 interface LazyBlogGridProps {
   initialBlogs: BlogType[];
   isEditing?: boolean;
@@ -22,17 +23,19 @@ export default function LazyBlogGrid({
   const [hasMore, setHasMore] = useState(initialBlogs.length > 9);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const prevLengthRef = useRef(0);
 
   const BLOGS_PER_PAGE = 9;
 
-  // Add this useEffect to reset when initialBlogs changes
+  // Reset when initialBlogs changes
   useEffect(() => {
     setDisplayedBlogs(initialBlogs.slice(0, BLOGS_PER_PAGE));
     setHasMore(initialBlogs.length > BLOGS_PER_PAGE);
+    prevLengthRef.current = 0;
   }, [initialBlogs]);
 
+  // Intersection Observer for lazy loading
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -59,28 +62,41 @@ export default function LazyBlogGrid({
     return () => observer.disconnect();
   }, [displayedBlogs, initialBlogs, hasMore]);
 
+  // Animate cards whenever new ones are added
   useGSAP(
     () => {
-      // Cards stagger animation
-      gsap.from(cardsRef.current, {
-        y: 100,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: {
-          amount: 0.8,
-          from: "start",
-        },
-        scrollTrigger: {
-          trigger: cardsRef.current[0],
-          start: "top 85%",
-          scrub: true,
-        },
-      });
+      const newCards = cardsRef.current.slice(prevLengthRef.current);
+      
+      if (newCards.length > 0) {
+        // Filter out null refs
+        const validCards = newCards.filter(card => card !== null);
+        
+        if (validCards.length > 0) {
+          gsap.fromTo(
+            validCards,
+            {
+              y: 60,
+              opacity: 0,
+              scale: 0.9,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              ease: "power2.out",
+              stagger: 0.08,
+              clearProps: "all", // Clean up inline styles after animation
+            }
+          );
+        }
+      }
+      
+      prevLengthRef.current = displayedBlogs.length;
     },
-    { scope: sectionRef }
+    { dependencies: [displayedBlogs.length], scope: sectionRef }
   );
+
   return (
     <div ref={sectionRef}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
