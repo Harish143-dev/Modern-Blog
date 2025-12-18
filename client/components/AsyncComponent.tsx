@@ -3,7 +3,6 @@ import HighestViewsBlogs from "./HighestViewsBlogs";
 import TodayHighlight from "./TodayHighlight";
 import LatestBlog from "./LatestBlog";
 import BlogsSlider from "./BlogsSlider";
-import CategoriesPage from "@/app/(blog)/blogs/categories/page";
 import Categories from "./Categories";
 import BlogCard from "./BlogCard";
 

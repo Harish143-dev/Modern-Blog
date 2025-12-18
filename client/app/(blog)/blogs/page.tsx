@@ -14,7 +14,11 @@ export default function BlogsPage() {
   useEffect(() => {
     async function fetchBlogs() {
       try {
-        const res = await blogService.getAllBlogs();
+        const res = await blogService.getAllBlogs({
+          published: true,
+          page: 1,
+          limit: 9,
+        });
         setBlogs(res.data.blogs || []);
       } catch (err) {
         console.error("Failed to fetch blogs:", err);
