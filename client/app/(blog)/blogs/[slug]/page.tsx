@@ -19,7 +19,7 @@ export default async function BlogPage({
     notFound();
   }
   return (
-    <main className="px-10 pt-20">
+    <main className="px-4 md:px-14 pt-20">
       <div className="mb-5">
         <h1 className="text-2xl md:text-4xl font-bold max-w-3xl mb-3">
           {blog.title}
