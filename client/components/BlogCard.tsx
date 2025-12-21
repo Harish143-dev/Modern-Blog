@@ -92,7 +92,10 @@ const BlogCard = ({
         </div>
 
         {/* Arrow Icon */}
-        <Link href={`/blogs/${blogs.slug}`} className="arrow-icon absolute top-4 right-4 z-10 opacity-0">
+        <Link
+          href={`/blogs/${blogs.slug}`}
+          className="arrow-icon absolute top-4 right-4 z-10 opacity-0"
+        >
           <div className="w-10 h-10 bg-background rounded-full flex items-center justify-center shadow-md">
             <ArrowUpRight className="w-5 h-5 text-primary" />
           </div>
@@ -107,7 +110,12 @@ const BlogCard = ({
           <div className="flex items-center gap-3">
             <div className="relative w-9 h-9 rounded-full bg-secondary text-secondary-foreground flex-center overflow-hidden ring-2 ring-border">
               {blogs.author?.profilePic ? (
-                <Image src={blogs.author.profilePic} alt="profile" fill className="object-cover object-center" />
+                <Image
+                  src={blogs.author.profilePic}
+                  alt="profile"
+                  fill
+                  className="object-cover object-center"
+                />
               ) : (
                 blogs.author?.name?.charAt(0).toUpperCase() ?? "U"
               )}
@@ -165,6 +173,13 @@ const BlogCard = ({
             </span>
           ))}
         </div>
+        {!blogs.published && (
+          <div className="absolute bottom-4 right-4 z-10">
+            <span className="px-3 py-1.5 bg-primary/50 backdrop-blur-sm text-xs font-semibold text-primary-foreground rounded-full shadow-sm">
+              Draft
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

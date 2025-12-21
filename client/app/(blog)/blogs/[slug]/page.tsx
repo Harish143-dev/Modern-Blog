@@ -4,6 +4,7 @@ import { blogService } from "@/services/blog.service";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import FeatureBlogSlider from "@/components/FeatureBlogSlider";
 import Link from "next/link";
+import BlogContentDisplay from "@/components/BlogContentDisplay";
 
 export default async function BlogPage({
   params,
@@ -61,12 +62,9 @@ export default async function BlogPage({
           </div>
 
           <div>
-            <p
-              className="text-base md:text-lg"
-              style={{ whiteSpace: "pre-wrap" }}
-            >
-              {blog.content}
-            </p>
+        
+          <BlogContentDisplay content={blog.content} />
+          
           </div>
         </section>
         <section className="w-full lg:w-1/4">

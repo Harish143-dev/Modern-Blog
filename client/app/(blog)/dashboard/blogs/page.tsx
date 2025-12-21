@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import LazyBlogGrid from "@/components/LazyBlogGrid";
 import { BlogCardsGridSkeleton } from "@/components/skeletonLoading/BlogCardsGridSkeleton";
 import { BlogType } from "@/types/blogsType";
+import { toast } from "sonner";
 
 const UsersBlogs = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const UsersBlogs = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          console.log("No token found, redirecting to login");
+          toast.error("No token found, redirecting to login");
           router.push("/login");
           return;
         }

@@ -142,7 +142,7 @@ const ProfileUpdate = () => {
       <div className="max-w-4xl mx-auto">
         <div className="bg-card text-card-foreground rounded-lg shadow-lg overflow-hidden mb-6">
           <div className="relative px-6 pt-6 pb-20">
-            <div className="flex items-start gap-6">
+            <div className="flex flex-col md:flex-row items-start gap-6">
               <div className="relative">
                 <div className="w-32 h-32 rounded-full border-4 border-background-foreground shadow-lg overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-100">
                   {profilePicPreview ? (

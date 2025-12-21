@@ -10,7 +10,7 @@ export const createBlog = async (req: AuthRequest, res: Response) => {
       req.body;
     const userId = req.user?.userId;
 
-    // Validate authenticated user
+    // Validate authenticated userc
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -195,7 +195,6 @@ export const getBlogsByCategory = async (req: AuthRequest, res: Response) => {
     const { category } = req.params;
 
     // Find ALL blogs with this category
-    console.log("Requested:", category);
     const blogs = await Blog.find({
       category: { $regex: new RegExp(`^${category}$`, "i") },
       published: true,

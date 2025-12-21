@@ -112,7 +112,10 @@ const HeroSection = () => {
   );
 
   return (
-    <div ref={heroRef} className="relative h-screen overflow-hidden">
+    <div
+      ref={heroRef}
+      className="relative min-h-screen flex-center overflow-hidden"
+    >
       {/* Animated Background */}
       <div
         ref={bgOverlayRef}

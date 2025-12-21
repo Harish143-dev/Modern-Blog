@@ -33,7 +33,7 @@ const userProfile = () => {
 
     blogService.getUserBlogs().then((res) => {
       setBlogs(res.blogs);
-      console.log(res.blogs);
+  
     });
   }, []);
 
@@ -108,7 +108,7 @@ const userProfile = () => {
                 <p className="text-muted-foreground text-lg">Reach</p>
               </div>
             </div>
-            <div>
+            <div className="flex-center">
               <Link href="/dashboard/edit-profile">
                 <Button
                   variant="link"

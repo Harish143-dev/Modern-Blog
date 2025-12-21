@@ -22,7 +22,7 @@ export const blogService = {
     return response.data;
   },
 
-  // Get blog by ID
+  // Get blog by IDblo
   getBlogById: async (id: string) => {
     const response = await api.get(`/blogs/${id}`);
     return response.data;
@@ -35,9 +35,7 @@ export const blogService = {
   },
   // Get blogs by category
   getBlogByCategory: async (category: string) => {
-    console.log("CATEGORY FRONTEND:", category);
     const response = await api.get(`/blogs/categories/${category}`);
-    console.log("API RESPONSE:", response.data);
     return response.data;
   },
 

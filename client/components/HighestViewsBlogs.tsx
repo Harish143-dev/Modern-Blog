@@ -23,12 +23,9 @@ const HighestViewsBlogs = ({
   const [sortBlogs, setSortBlogs] = useState<BlogType[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
-
   useEffect(() => {
     if (blogs && blogs.length > 0) {
-      const sorted = [...blogs]
-        .sort((a, b) => b.views - a.views)
-        .slice(0, 3);
+      const sorted = [...blogs].sort((a, b) => b.views - a.views).slice(0, 3);
 
       setSortBlogs(sorted);
     }
@@ -38,7 +35,7 @@ const HighestViewsBlogs = ({
     () => {
       if (sortBlogs.length === 0) return;
 
-      const validCards = cardsRef.current.filter(card => card !== null);
+      const validCards = cardsRef.current.filter((card) => card !== null);
 
       if (validCards.length > 0) {
         // Initial state
@@ -153,14 +150,13 @@ const HighestViewsBlogs = ({
   return (
     <div
       ref={containerRef}
-      className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 px-5 md:px-10 lg:px-20 py-10"
-      style={{ perspective: "1000px" }}
+      className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-14 py-10"
     >
       {sortBlogs.map((blog, index) => (
         <Link
           key={blog._id}
           href={`/blogs/${blog.slug}`}
-          className="group flex-1"
+          className="group"
           ref={(el) => {
             cardsRef.current[index] = el;
           }}
@@ -168,10 +164,11 @@ const HighestViewsBlogs = ({
           <div className="relative h-full min-h-[140px] rounded-xl overflow-hidden bg-card border border/50 hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow">
             <div className="flex h-full">
               {/* Image */}
-              <div className="relative w-1/3 min-w-[140px] overflow-hidden">
-                <img
+              <div className="relative w-1/3 h-full min-w-[140px]  overflow-hidden">
+                <Image
                   src={blog.blogImages}
                   alt={blog.title}
+                  fill
                   className="w-full h-full object-cover transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/20" />

@@ -6,6 +6,8 @@ import { blogService } from "@/services/blog.service";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { BlogType } from "@/types/blogsType";
+import Tiptap from "./BlogContent";
+import { toast } from "sonner";
 
 export default function UpdateBlogPage({
   initialData: initialBlog,
@@ -206,11 +208,7 @@ export default function UpdateBlogPage({
         blogImage: existingImage, // Single image string
       };
 
-      console.log("Sending update request:", {
-        blogId: initialBlog._id,
-        data: updateData,
-        hasNewImage: images,
-      });
+   
 
       const result = await blogService.updateBlog(
         initialBlog._id,
@@ -218,7 +216,7 @@ export default function UpdateBlogPage({
         images || undefined
       );
 
-      console.log("Blog updated successfully:", result);
+      toast.success("Blog updated successfully");
 
       // Success animation
       gsap.to(formRef.current, {
@@ -255,7 +253,7 @@ export default function UpdateBlogPage({
   return (
     <div ref={containerRef} className="mx-auto px-4 pt-20 max-w-4xl">
       <div ref={headerRef} className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">Update Blog Post</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Update Blog Post</h1>
         <button
           onClick={() => router.back()}
           className="cursor-pointer text-primary hover:text-secondary transition"
@@ -331,7 +329,7 @@ export default function UpdateBlogPage({
 
           {/* Content */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-muted-foreground mb-2">
+            {/* <label className="block text-sm font-medium text-muted-foreground mb-2">
               Content *
             </label>
             <textarea
@@ -342,6 +340,15 @@ export default function UpdateBlogPage({
               rows={12}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono text-sm"
               placeholder="Write your blog content here (supports HTML)"
+            /> */}
+            <Tiptap
+              initialContent={formData.content}
+              onUpdate={(html) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  content: html,
+                }));
+              }}
             />
           </div>
 
@@ -467,7 +474,7 @@ export default function UpdateBlogPage({
 
         {/* Submit Buttons */}
         {/* Submit Buttons */}
-        <div className="flex gap-4 pt-4 border-t">
+        <div className="flex gap-4 pt-4 border-t text-sm md:text-base">
           <button
             onClick={handleSubmit}
             disabled={loading || isDeleting}
@@ -494,7 +501,7 @@ export default function UpdateBlogPage({
                 Updating...
               </span>
             ) : (
-              "Update Blog Post"
+              "Update"
             )}
           </button>
           <button

@@ -90,7 +90,7 @@ const TodayHighlight = ({ blogs }: { blogs: BlogType[] }) => {
   return (
     <section
       ref={sectionRef}
-      className="w-full max-w-7xl mx-auto px-4 py-12 mt-10"
+      className="w-full max-w-7xl mx-auto px-4 py-12 mt-10 overflow-hidden"
     >
       {/* Section Header */}
       <div ref={headerRef} className="flex items-center justify-between mb-8">
