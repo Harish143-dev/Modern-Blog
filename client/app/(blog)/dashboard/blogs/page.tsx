@@ -13,11 +13,13 @@ const UsersBlogs = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
         // Check for token
+        setIsLoading(true);
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -30,11 +32,13 @@ const UsersBlogs = () => {
 
         // Ensure it's an array
         setBlogs(response.blogs);
-        setIsEditing(true)
+        setIsEditing(true);
+        setIsLoading(false);
       } catch (err) {
         console.error("Error fetching blogs:", err);
         setError("Failed to load blogs");
       } finally {
+        setIsLoading(false);
       }
     };
 
@@ -49,13 +53,14 @@ const UsersBlogs = () => {
     );
   }
 
+  if (isLoading) {
+    return <BlogCardsGridSkeleton count={9} />;
+  }
   return (
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-3xl font-bold mb-6">My Blogs</h1>
 
-      <Suspense fallback={<BlogCardsGridSkeleton count={blogs.length} />}>
-        <LazyBlogGrid initialBlogs={blogs} isEditing={isEditing} />
-      </Suspense>
+      <LazyBlogGrid initialBlogs={blogs} isEditing={isEditing} />
     </div>
   );
 };
