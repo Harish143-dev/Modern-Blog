@@ -13,13 +13,12 @@ const UsersBlogs = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
-        // Check for token
-        setIsLoading(true);
+     
         const token = localStorage.getItem("token");
 
         if (!token) {
