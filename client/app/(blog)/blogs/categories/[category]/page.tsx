@@ -1,9 +1,13 @@
 import BlogCard from "@/components/BlogCard";
+import LazyBlogGrid from "@/components/LazyBlogGrid";
+import { BlogCardsGridSkeleton } from "@/components/skeletonLoading/BlogCardsGridSkeleton";
 import { blogService } from "@/services/blog.service";
+import { useState } from "react";
 
 export default async function CategoryPage({ params }: any) {
   const resolvedParams = await params; // FIX
   const category = resolvedParams.category; // NOW SAFE
+  const [loading, setLoading] = useState(true);
 
   if (!category) {
     return (
@@ -25,18 +29,17 @@ export default async function CategoryPage({ params }: any) {
         </h1>
       </div>
     );
+  } finally {
+    setLoading(false);
   }
+  if (loading) return <BlogCardsGridSkeleton count={data.blog.length} />;
   return (
     <div className="px-4 md:px-14 py-8 pt-20 m-auto">
       <h1 className="text-2xl md:text-4xl font-bold mb-8">
         {category.charAt(0).toUpperCase() + category.slice(1)}
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {data.blogs.map((blog: any) => (
-          <BlogCard key={blog._id} blogs={blog} />
-        ))}
-      </div>
+      <LazyBlogGrid initialBlogs={data.blogs} />
     </div>
   );
 }
