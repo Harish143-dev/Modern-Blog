@@ -1,13 +1,13 @@
+
 import BlogCard from "@/components/BlogCard";
 import LazyBlogGrid from "@/components/LazyBlogGrid";
 import { BlogCardsGridSkeleton } from "@/components/skeletonLoading/BlogCardsGridSkeleton";
 import { blogService } from "@/services/blog.service";
-import { useState } from "react";
+
 
 export default async function CategoryPage({ params }: any) {
   const resolvedParams = await params; // FIX
   const category = resolvedParams.category; // NOW SAFE
-  const [loading, setLoading] = useState(true);
 
   if (!category) {
     return (
@@ -30,9 +30,9 @@ export default async function CategoryPage({ params }: any) {
       </div>
     );
   } finally {
-    setLoading(false);
+    // setLoading(false);
   }
-  if (loading) return <BlogCardsGridSkeleton count={data.blog.length} />;
+  // if (loading) return <BlogCardsGridSkeleton count={data.blog.length} />;
   return (
     <div className="px-4 md:px-14 py-8 pt-20 m-auto">
       <h1 className="text-2xl md:text-4xl font-bold mb-8">

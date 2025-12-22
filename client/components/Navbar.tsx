@@ -128,6 +128,7 @@ const Navbar = () => {
     }
   }, [isMenuOpen]);
 
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
